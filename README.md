@@ -4,6 +4,8 @@
 
 Si no tienes el entorno creado para poder ejecutar el proyecto en python, sigue el tutorial leyendo el archivo "README.md" en el siguiente enlace: <https://github.com/JorgeCM2004/Practica1_Algoritmos_de_Busqueda_II>
 
+Puedes clonar el repositorio desde: <https://github.com/JorgeCM2004/Practica2_Algoritmos_de_Busqueda_II.git>
+
 ## Archivos a Ejecutar
 
 En este apartado, te explicaré que archivos puedes ejecutar y cual es su funcionamiento.
