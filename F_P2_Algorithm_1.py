@@ -10,21 +10,24 @@ class P2_Algorithm_1(Experiment):
 	"""
 	Ant Colony Optimization (ACO).
 	"""
-	def run(self, instance: Instance, objetive_function: Objetive_Function, max_time: float, num_ants: int = 50, alpha: float = 2, beta: float = 1, p: float = 0.3, q: int = 1, Q: float = 200) -> Solution_Route:
+	def run(self, instance: Instance, objetive_function: Objetive_Function, max_time: float, num_ants: int = 50, alpha: float = 2, beta: float = 1, p: float = 0.7, q: int = 1, Q: float = 100) -> Solution_Route:
 		time0 = time()
 		time1 = time0
 		self._initialize_pheromones(instance, q)
 		best_sol = None
 		ant = Ant(instance, objetive_function)
 		while time1 - time0 < max_time or best_sol is None:
-			solutions = []
-			for _ in range(num_ants):
-				solution = ant.explore(self.pheromones, alpha, beta)
-				solution.set_algorithm("Algorithm_1")
-				solutions.append(solution)
-				if solution < best_sol:
-					best_sol = solution
-			self._update_pheromones(instance, solutions, p, Q)
+			try:
+				solutions = []
+				for _ in range(num_ants):
+					solution = ant.explore(self.pheromones, alpha, beta)
+					solution.set_algorithm("Algorithm_1")
+					solutions.append(solution)
+					if solution < best_sol:
+						best_sol = solution
+				self._update_pheromones(instance, solutions, p, Q)
+			except:
+				pass
 			time1 = time()
 		return best_sol
 

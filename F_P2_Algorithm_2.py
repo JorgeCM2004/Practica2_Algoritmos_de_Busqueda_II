@@ -18,25 +18,31 @@ class P2_Algorithm_2:
 		matting_pool = []
 		best_sol = None
 		for _ in range(matting_pool_size):
-			new_sol = ant.explore(false_pheromones, 1, 1)
-			if new_sol.get_of_value() is not None:
-				new_sol.set_algorithm("Algorithm_1")
-				matting_pool.append(new_sol)
-				if new_sol < best_sol:
-					best_sol = new_sol
+			try:
+				new_sol = ant.explore(false_pheromones, 1, 1)
+				if new_sol.get_of_value() is not None:
+					new_sol.set_algorithm("Algorithm_1")
+					matting_pool.append(new_sol)
+					if new_sol < best_sol:
+						best_sol = new_sol
+			except:
+				pass
 		while time1 - time0 < max_time or best_sol is None:
-			rn.shuffle(matting_pool)
-			for i in range(0, len(matting_pool) - 1, 2):
-				if rn.random() <= cross_probability:
-					higher = max((matting_pool[i].get_of_value(), i), (matting_pool[i + 1].get_of_value(), i + 1))
-					new_sol = genetic.cross(matting_pool[i], matting_pool[i + 1])
-					if new_sol is not None:
-						new_sol.set_algorithm("Algorithm_2")
-						if rn.random() <= mutation_probability:
-							mutated = genetic.mutation(new_sol)
-						if new_sol < best_sol:
-							best_sol = new_sol
-						matting_pool[higher[1]] = new_sol
+			try:
+				rn.shuffle(matting_pool)
+				for i in range(0, len(matting_pool) - 1, 2):
+					if rn.random() <= cross_probability:
+						higher = max((matting_pool[i].get_of_value(), i), (matting_pool[i + 1].get_of_value(), i + 1))
+						new_sol = genetic.cross(matting_pool[i], matting_pool[i + 1])
+						if new_sol is not None:
+							new_sol.set_algorithm("Algorithm_2")
+							if rn.random() <= mutation_probability:
+								mutated = genetic.mutation(new_sol)
+							if new_sol < best_sol:
+								best_sol = new_sol
+							matting_pool[higher[1]] = new_sol
+			except:
+				pass
 			time1 = time()
 		return best_sol
 
